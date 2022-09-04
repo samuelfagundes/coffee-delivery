@@ -80,6 +80,7 @@ export const CoffeeCardFooter = styled.div`
       font-family: 'Baloo 2', sans-serif;
       font-weight: 800;
       font-size: 1.5rem;
+      margin-left: 0.2rem;
     }
   }
 
@@ -102,10 +103,17 @@ export const CoffeeCardFooter = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        color: ${(props) => props.theme['purple-900']};
+        color: ${(props) => props.theme['purple-500']};
         background-color: inherit;
         border: none;
         margin: 0 0.5rem;
+        cursor: pointer;
+
+        transition: color 0.2s;
+      }
+
+      > button:hover {
+        color: ${(props) => props.theme['purple-900']};
       }
     }
 
@@ -118,6 +126,13 @@ export const CoffeeCardFooter = styled.div`
       border: none;
       padding: 0.5rem;
       border-radius: 6px;
+      cursor: pointer;
+
+      transition: background-color 0.2s;
+    }
+
+    > button:hover {
+      background-color: ${(props) => props.theme['purple-500']};
     }
   }
 `

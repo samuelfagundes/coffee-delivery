@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const IntroContainer = styled.div`
-  margin: 7.875rem 0;
+  margin: 5.75rem 0;
   display: flex;
   gap: 3.25rem;
 
