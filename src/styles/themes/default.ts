@@ -5,7 +5,7 @@ export const defaultTheme = {
   'gray-100': '#F3F2F2',
   'gray-200': '#EDEDED',
   'gray-300': '#E6E5E5',
-  'gray-400': '#d7d5d5',
+  'gray-400': '#D7D5D5',
 
   'brown-100': '#8D8686',
   'brown-200': '#574F4D',

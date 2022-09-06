@@ -86,9 +86,14 @@ export const RemoveButton = styled.button`
   padding: 0.4rem;
   background-color: ${(props) => props.theme['gray-300']};
   color: ${(props) => props.theme['brown-200']};
+  transition: background-color 0.2s;
 
   svg {
     color: ${(props) => props.theme['purple-500']};
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme['gray-400']};
   }
 `
 

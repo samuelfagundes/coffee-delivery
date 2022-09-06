@@ -53,6 +53,12 @@ export const FormInfo = styled.form`
   max-width: 35rem;
   flex-wrap: wrap;
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   .cep {
     margin-bottom: 1rem;
   }

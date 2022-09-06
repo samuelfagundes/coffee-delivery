@@ -12,10 +12,10 @@ export function AddressForm() {
         </p>
       </div>
       <FormInfo>
-        <FormInput type="text" placeholder="CEP" className="cep" required />
+        <FormInput type="number" placeholder="CEP" className="cep" required />
         <FormInput type="text" placeholder="Rua" className="rua" required />
         <FormInput
-          type="text "
+          type="number"
           placeholder="Número"
           className="numero"
           required
