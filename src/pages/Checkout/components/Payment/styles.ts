@@ -31,40 +31,45 @@ export const PaymentContainer = styled.div`
     }
   }
 `
+interface PaymentButtonProps {
+  isActive: boolean
+}
+
+export const PaymentButton = styled.button<PaymentButtonProps>`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border-radius: 6px;
+  padding: 1rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: ${(props) => props.theme['brown-200']};
+  border: 1px solid ${(props) => props.theme['purple-500']};
+  border: ${(props) => (props.isActive ? '' : 'none')};
+  background-color: ${(props) =>
+    props.isActive ? props.theme['purple-100'] : props.theme['gray-300']};
+
+  transition: background-color 0.2s;
+
+  svg {
+    color: ${(props) => props.theme['purple-500']};
+    margin-right: 0.5rem;
+  }
+
+  &#active {
+    background-color: ${(props) => props.theme['purple-100']};
+    /* border:  */
+  }
+
+  :not(:last-child) {
+    margin-right: 0.75rem;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme['gray-400']};
+  }
+`
 
 export const PaymenyMethod = styled.div`
   display: flex;
-
-  button {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    border: none;
-    border-radius: 6px;
-    padding: 1rem;
-    font-size: 0.75rem;
-    cursor: pointer;
-    color: ${(props) => props.theme['brown-200']};
-    background-color: ${(props) => props.theme['gray-300']};
-
-    transition: background-color 0.2s;
-
-    svg {
-      color: ${(props) => props.theme['purple-500']};
-      margin-right: 0.5rem;
-    }
-
-    &#active {
-      background-color: ${(props) => props.theme['purple-100']};
-      border: 1px solid ${(props) => props.theme['purple-500']};
-    }
-
-    :not(:last-child) {
-      margin-right: 0.75rem;
-    }
-
-    :hover {
-      background-color: ${(props) => props.theme['gray-400']};
-    }
-  }
 `

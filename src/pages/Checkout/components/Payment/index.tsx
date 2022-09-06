@@ -1,7 +1,10 @@
 import { Bank, CreditCard, CurrencyDollarSimple, Money } from 'phosphor-react'
-import { PaymentContainer, PaymenyMethod } from './styles'
+import { useState } from 'react'
+import { PaymentButton, PaymentContainer, PaymenyMethod } from './styles'
 
 export function Payment() {
+  const [method, setMethod] = useState('')
+
   return (
     <PaymentContainer>
       <div>
@@ -14,15 +17,24 @@ export function Payment() {
         </p>
       </div>
       <PaymenyMethod>
-        <button id="active">
+        <PaymentButton
+          onClick={() => setMethod('CreditCard')}
+          isActive={method === 'CreditCard'}
+        >
           <CreditCard size={16} /> CARTÃO DE CRÉDITO
-        </button>
-        <button>
+        </PaymentButton>
+        <PaymentButton
+          onClick={() => setMethod('DebitCard')}
+          isActive={method === 'DebitCard'}
+        >
           <Bank size={16} /> CARTÃO DE DÉBITO
-        </button>
-        <button>
+        </PaymentButton>
+        <PaymentButton
+          onClick={() => setMethod('Money')}
+          isActive={method === 'Money'}
+        >
           <Money size={16} /> DINHEIRO
-        </button>
+        </PaymentButton>
       </PaymenyMethod>
     </PaymentContainer>
   )

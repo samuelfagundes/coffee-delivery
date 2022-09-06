@@ -1,6 +1,11 @@
 import { AddressForm } from './components/AddressForm/'
+import { Order } from './components/Order'
 import { Payment } from './components/Payment'
-import { CheckoutContainer, DeliveryFormContainer } from './styles'
+import {
+  CheckoutContainer,
+  DeliveryFormContainer,
+  OrderContainer,
+} from './styles'
 
 export function Checkout() {
   return (
@@ -10,6 +15,10 @@ export function Checkout() {
         <AddressForm />
         <Payment />
       </DeliveryFormContainer>
+      <OrderContainer>
+        <h1>Cafés selecionados</h1>
+        <Order />
+      </OrderContainer>
     </CheckoutContainer>
   )
 }
