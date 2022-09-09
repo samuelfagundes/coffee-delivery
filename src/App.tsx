@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { GlobalStyle } from './styles/global'
 import { defaultTheme } from './styles/themes/default'
+import { OrderContextProvider } from './context/OrderContext'
 
 export function App() {
   return (
     <div>
       <ThemeProvider theme={defaultTheme}>
         <BrowserRouter>
-          <Router />
+          <OrderContextProvider>
+            <Router />
+          </OrderContextProvider>
         </BrowserRouter>
         <GlobalStyle />
       </ThemeProvider>

@@ -1,34 +1,16 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { Minus, Plus, ShoppingCart } from 'phosphor-react'
+import { useContext } from 'react'
+import { OrderContext } from '../../../../context/OrderContext'
 import {
   CoffeeCardContainer,
   CoffeeCardFooter,
   CoffeeListContaier,
   CoffeeListSection,
 } from './styles'
-import { Minus, Plus, ShoppingCart } from 'phosphor-react'
-
-interface Coffee {
-  id: number
-  name: string
-  tags: string[]
-  description: string
-  price: string
-  image: string
-}
 
 export function CoffeeList() {
-  const [coffeesList, setCoffeesList] = useState<Coffee[]>([])
-
-  useEffect(() => {
-    async function getCoffees() {
-      const response = await axios.get('http://localhost:3000/coffees')
-      setCoffeesList(response.data)
-    }
-    getCoffees()
-  }, [])
-
-  console.log(coffeesList)
+  const { coffeesList, orderList, addProduct, removeProduct } =
+    useContext(OrderContext)
 
   return (
     <CoffeeListContaier>
@@ -53,11 +35,38 @@ export function CoffeeList() {
 
                   <form>
                     <div>
-                      <button>
+                      <button
+                        onClick={() =>
+                          removeProduct(
+                            event,
+                            coffee.id,
+                            coffee.name,
+                            coffee.price,
+                            coffee.image,
+                          )
+                        }
+                      >
                         <Minus />
                       </button>
-                      <p>1</p>
-                      <button>
+                      <p>
+                        {orderList.map((order) => {
+                          if (order.id === coffee.id) {
+                            return order.quantity
+                          }
+                          return null
+                        })}
+                      </p>
+                      <button
+                        onClick={() =>
+                          addProduct(
+                            event,
+                            coffee.id,
+                            coffee.name,
+                            coffee.price,
+                            coffee.image,
+                          )
+                        }
+                      >
                         <Plus />
                       </button>
                     </div>

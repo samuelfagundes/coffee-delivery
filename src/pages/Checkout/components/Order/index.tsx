@@ -1,6 +1,6 @@
-import axios from 'axios'
 import { Minus, Plus, Trash } from 'phosphor-react'
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
+import { OrderContext } from '../../../../context/OrderContext'
 import {
   ChangeQuantityButton,
   ConfirmOrderButton,
@@ -10,73 +10,60 @@ import {
   RemoveButton,
 } from './styles'
 
-interface Coffee {
-  id: number
-  name: string
-  price: string
-  image: string
-}
-
 export function Order() {
-  const [coffeesList, setCoffeesList] = useState<Coffee[]>([])
-
-  useEffect(() => {
-    async function getCoffees() {
-      const response = await axios.get('http://localhost:3000/coffees')
-      setCoffeesList(response.data)
-    }
-    getCoffees()
-  }, [])
+  const { orderList, addProduct, removeProduct } = useContext(OrderContext)
 
   return (
     <OrderContainer>
       <Products>
-        <div>
-          <img src={coffeesList[0]?.image} alt={coffeesList[0]?.name} />
-          <div>
-            <p>{coffeesList[0]?.name}</p>
-            <div>
-              <ChangeQuantityButton>
-                <button>
-                  <Minus />
-                </button>
-                <p>1</p>
-                <button>
-                  <Plus />
-                </button>
-              </ChangeQuantityButton>
-              <RemoveButton>
-                <Trash size={16} /> Remover
-              </RemoveButton>
-            </div>
-          </div>
-        </div>
-        <span>R$ {coffeesList[0]?.price}</span>
+        {orderList.map((coffee) => {
+          return (
+            <>
+              <div>
+                <img src={coffee.image} alt={coffee.name} />
+                <div>
+                  <p>{coffee.name}</p>
+                  <div>
+                    <ChangeQuantityButton>
+                      <button
+                        onClick={() =>
+                          removeProduct(
+                            event,
+                            coffee.id,
+                            coffee.name,
+                            coffee.price,
+                            coffee.image,
+                          )
+                        }
+                      >
+                        <Minus />
+                      </button>
+                      <p>1</p>
+                      <button
+                        onClick={() =>
+                          addProduct(
+                            event,
+                            coffee.id,
+                            coffee.name,
+                            coffee.price,
+                            coffee.image,
+                          )
+                        }
+                      >
+                        <Plus />
+                      </button>
+                    </ChangeQuantityButton>
+                    <RemoveButton>
+                      <Trash size={16} /> Remover
+                    </RemoveButton>
+                  </div>
+                </div>
+              </div>
+              <span>R$ {coffee.price}</span>
+            </>
+          )
+        })}
       </Products>
-      <Products>
-        <div>
-          <img src={coffeesList[0]?.image} alt={coffeesList[0]?.name} />
-          <div>
-            <p>{coffeesList[0]?.name}</p>
-            <div>
-              <ChangeQuantityButton>
-                <button>
-                  <Minus />
-                </button>
-                <p>1</p>
-                <button>
-                  <Plus />
-                </button>
-              </ChangeQuantityButton>
-              <RemoveButton>
-                <Trash size={16} /> Remover
-              </RemoveButton>
-            </div>
-          </div>
-        </div>
-        <span>R$ {coffeesList[0]?.price}</span>
-      </Products>
-
       <PriceInfo>
         <p>
           Total de itens <span>R$ 19,80</span>
