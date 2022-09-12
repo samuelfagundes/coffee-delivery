@@ -26,6 +26,7 @@ export const LocationButton = styled.button`
 `
 
 export const Cart = styled.button`
+  position: relative;
   display: flex;
   padding: 0.5rem;
   align-items: center;
@@ -33,4 +34,23 @@ export const Cart = styled.button`
   border-radius: 6px;
   background-color: ${(props) => props.theme['yellow-100']};
   color: ${(props) => props.theme['yellow-900']};
+`
+
+export const Counter = styled.div`
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  top: calc(-1.25rem / 2);
+  right: calc(-1.25rem / 2);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 2px;
+  position: absolute;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 130%;
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme['yellow-900']};
 `

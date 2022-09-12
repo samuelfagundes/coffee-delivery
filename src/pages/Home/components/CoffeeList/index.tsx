@@ -1,5 +1,6 @@
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { OrderContext } from '../../../../context/OrderContext'
 import {
   CoffeeCardContainer,
@@ -9,7 +10,7 @@ import {
 } from './styles'
 
 export function CoffeeList() {
-  const { coffeesList, orderList, addProduct, removeProduct } =
+  const { coffeesList, orderList, addProduct, removeProduct, saveOrderList } =
     useContext(OrderContext)
 
   return (
@@ -49,12 +50,8 @@ export function CoffeeList() {
                         <Minus />
                       </button>
                       <p>
-                        {orderList.map((order) => {
-                          if (order.id === coffee.id) {
-                            return order.quantity
-                          }
-                          return null
-                        })}
+                        {orderList.find((order) => order.id === coffee.id)
+                          ?.quantity || '0'}
                       </p>
                       <button
                         onClick={() =>
@@ -70,9 +67,11 @@ export function CoffeeList() {
                         <Plus />
                       </button>
                     </div>
-                    <button>
-                      <ShoppingCart size={22} weight="fill" />
-                    </button>
+                    <Link to="/checkout">
+                      <button onClick={saveOrderList}>
+                        <ShoppingCart size={22} weight="fill" />
+                      </button>
+                    </Link>
                   </form>
                 </CoffeeCardFooter>
               </div>

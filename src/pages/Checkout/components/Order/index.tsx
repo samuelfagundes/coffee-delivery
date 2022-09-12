@@ -1,5 +1,6 @@
 import { Minus, Plus, Trash } from 'phosphor-react'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { OrderContext } from '../../../../context/OrderContext'
 import {
   ChangeQuantityButton,
@@ -11,14 +12,18 @@ import {
 } from './styles'
 
 export function Order() {
-  const { orderList, addProduct, removeProduct } = useContext(OrderContext)
+  const { coffeesList, orderList, addProduct, removeProduct, deleteOrder } =
+    useContext(OrderContext)
 
   return (
     <OrderContainer>
-      <Products>
-        {orderList.map((coffee) => {
+      {coffeesList.map((singleOrder) => {
+        const filteredOrdersList = orderList.filter(
+          (order) => order.id === singleOrder.id,
+        )
+        return filteredOrdersList.map((coffee) => {
           return (
-            <>
+            <Products key={coffee.id}>
               <div>
                 <img src={coffee.image} alt={coffee.name} />
                 <div>
@@ -38,7 +43,7 @@ export function Order() {
                       >
                         <Minus />
                       </button>
-                      <p>1</p>
+                      <p>{coffee.quantity}</p>
                       <button
                         onClick={() =>
                           addProduct(
@@ -53,17 +58,17 @@ export function Order() {
                         <Plus />
                       </button>
                     </ChangeQuantityButton>
-                    <RemoveButton>
+                    <RemoveButton onClick={() => deleteOrder(coffee.id)}>
                       <Trash size={16} /> Remover
                     </RemoveButton>
                   </div>
                 </div>
               </div>
               <span>R$ {coffee.price}</span>
-            </>
+            </Products>
           )
-        })}
-      </Products>
+        })
+      })}
       <PriceInfo>
         <p>
           Total de itens <span>R$ 19,80</span>
@@ -76,7 +81,9 @@ export function Order() {
           <span>R$ 23,30</span>
         </p>
       </PriceInfo>
-      <ConfirmOrderButton>CONFIRMAR PEDIDO</ConfirmOrderButton>
+      <Link to="/success">
+        <ConfirmOrderButton>CONFIRMAR PEDIDO</ConfirmOrderButton>
+      </Link>
     </OrderContainer>
   )
 }

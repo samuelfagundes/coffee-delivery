@@ -117,7 +117,7 @@ export const CoffeeCardFooter = styled.div`
       }
     }
 
-    > button {
+    > a > button {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -131,7 +131,7 @@ export const CoffeeCardFooter = styled.div`
       transition: background-color 0.2s;
     }
 
-    > button:hover {
+    > a > button:hover {
       background-color: ${(props) => props.theme['purple-500']};
     }
   }

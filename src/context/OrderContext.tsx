@@ -36,6 +36,8 @@ interface OrderContextType {
     price: string,
     image: string,
   ) => void
+  saveOrderList: () => void
+  deleteOrder: (id: number) => void
 }
 
 export const OrderContext = createContext({} as OrderContextType)
@@ -55,6 +57,18 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
     getCoffees()
   }, [])
+
+  useEffect(() => {
+    const localStorageOrderList = localStorage.getItem('CoffeeDelivery Order')
+
+    if (localStorageOrderList) {
+      setOrderList(JSON.parse(localStorageOrderList))
+    }
+  }, [])
+
+  function saveOrderList() {
+    localStorage.setItem('CoffeeDelivery Order', JSON.stringify(orderList))
+  }
 
   function addProduct(
     event: any,
@@ -105,7 +119,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
           if (order.id === coffee.id) {
             if (order.quantity === 1) {
               const filterOrderToRemove = orderList.filter(
-                (order) => order.id !== id,
+                (order) => order.id !== coffee.id,
               )
               return setOrderList(filterOrderToRemove)
             }
@@ -125,9 +139,26 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     })
   }
 
+  function deleteOrder(id: number) {
+    orderList.map((order) => {
+      if (order.id === id) {
+        const filterOrderToRemove = orderList.filter((order) => order.id !== id)
+        return setOrderList(filterOrderToRemove)
+      }
+      return orderList
+    })
+  }
+
   return (
     <OrderContext.Provider
-      value={{ addProduct, removeProduct, coffeesList, orderList }}
+      value={{
+        addProduct,
+        removeProduct,
+        coffeesList,
+        orderList,
+        saveOrderList,
+        deleteOrder,
+      }}
     >
       {children}
     </OrderContext.Provider>

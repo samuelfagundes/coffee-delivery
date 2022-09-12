@@ -7,6 +7,10 @@ export const OrderContainer = styled.div`
   padding: 2.5rem;
   border-radius: 6px 44px;
   background-color: ${(props) => props.theme['gray-100']};
+
+  > a {
+    text-decoration: none;
+  }
 `
 
 export const Products = styled.div`
