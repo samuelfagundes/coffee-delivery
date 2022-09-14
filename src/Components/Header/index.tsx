@@ -9,7 +9,9 @@ export function Header() {
   const { orderList, saveOrderList } = useContext(OrderContext)
   return (
     <HeaderContainer>
-      <img src={Logo} alt="Coffee Delivery" />
+      <Link to="/">
+        <img src={Logo} alt="Coffee Delivery" />
+      </Link>
 
       <div>
         <LocationButton>

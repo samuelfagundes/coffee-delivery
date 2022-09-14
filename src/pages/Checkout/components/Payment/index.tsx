@@ -1,9 +1,29 @@
 import { Bank, CreditCard, CurrencyDollarSimple, Money } from 'phosphor-react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { OrderContext } from '../../../../context/OrderContext'
 import { PaymentButton, PaymentContainer, PaymenyMethod } from './styles'
 
 export function Payment() {
+  const { updatePaymentInfo } = useContext(OrderContext)
   const [method, setMethod] = useState('')
+
+  function updateMethodCredidCard() {
+    const method = 'CreditCard'
+    setMethod(method)
+    updatePaymentInfo(method)
+  }
+
+  function updateMethodDebitCard() {
+    const method = 'DebitCard'
+    setMethod(method)
+    updatePaymentInfo(method)
+  }
+
+  function updateMethodMoney() {
+    const method = 'Money'
+    setMethod(method)
+    updatePaymentInfo(method)
+  }
 
   return (
     <PaymentContainer>
@@ -18,19 +38,19 @@ export function Payment() {
       </div>
       <PaymenyMethod>
         <PaymentButton
-          onClick={() => setMethod('CreditCard')}
+          onClick={() => updateMethodCredidCard()}
           isActive={method === 'CreditCard'}
         >
           <CreditCard size={16} /> CARTÃO DE CRÉDITO
         </PaymentButton>
         <PaymentButton
-          onClick={() => setMethod('DebitCard')}
+          onClick={() => updateMethodDebitCard()}
           isActive={method === 'DebitCard'}
         >
           <Bank size={16} /> CARTÃO DE DÉBITO
         </PaymentButton>
         <PaymentButton
-          onClick={() => setMethod('Money')}
+          onClick={() => updateMethodMoney()}
           isActive={method === 'Money'}
         >
           <Money size={16} /> DINHEIRO

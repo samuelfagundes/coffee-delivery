@@ -9,6 +9,10 @@ export const HeaderContainer = styled.header`
     display: flex;
     gap: 12px;
   }
+
+  a {
+    cursor: pointer;
+  }
 `
 
 export const LocationButton = styled.button`
@@ -34,6 +38,7 @@ export const Cart = styled.button`
   border-radius: 6px;
   background-color: ${(props) => props.theme['yellow-100']};
   color: ${(props) => props.theme['yellow-900']};
+  cursor: pointer;
 `
 
 export const Counter = styled.div`

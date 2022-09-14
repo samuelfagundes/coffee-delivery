@@ -12,8 +12,32 @@ import {
 } from './styles'
 
 export function Order() {
-  const { coffeesList, orderList, addProduct, removeProduct, deleteOrder } =
-    useContext(OrderContext)
+  const {
+    coffeesList,
+    orderList,
+    addProduct,
+    removeProduct,
+    deleteOrder,
+    paymentInfo,
+    updateDeliveryInfo,
+    cep,
+    street,
+    addressNumber,
+    district,
+    city,
+    uf,
+    clearOrderList,
+  } = useContext(OrderContext)
+
+  const totalItems = orderList.reduce(
+    (previousValue, currentValue) =>
+      previousValue + Number(currentValue.price) * currentValue.quantity,
+    0,
+  )
+
+  const deliveryTax = 3.5
+
+  const totalToPay = totalItems + deliveryTax
 
   return (
     <OrderContainer>
@@ -71,19 +95,36 @@ export function Order() {
       })}
       <PriceInfo>
         <p>
-          Total de itens <span>R$ 19,80</span>
+          Total de itens <span>R$ {totalItems.toFixed(2)}</span>
         </p>
         <p>
-          Entrega <span>R$ 3,50</span>
+          Entrega <span>R$ {deliveryTax.toFixed(2)}</span>
         </p>
         <p>
           Total
-          <span>R$ 23,30</span>
+          <span>R$ {totalToPay.toFixed(2)}</span>
         </p>
       </PriceInfo>
-      <Link to="/success">
-        <ConfirmOrderButton>CONFIRMAR PEDIDO</ConfirmOrderButton>
-      </Link>
+      {cep &&
+      street &&
+      addressNumber &&
+      district &&
+      city &&
+      uf &&
+      paymentInfo ? (
+        <Link to="/success">
+          <ConfirmOrderButton
+            onClick={() => {
+              updateDeliveryInfo(cep, street, addressNumber, district, city, uf)
+              clearOrderList()
+            }}
+          >
+            CONFIRMAR PEDIDO
+          </ConfirmOrderButton>
+        </Link>
+      ) : (
+        <strong>Preencha as informações para continuar</strong>
+      )}
     </OrderContainer>
   )
 }

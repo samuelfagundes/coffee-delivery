@@ -1,7 +1,22 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
+import { useContext } from 'react'
+import { OrderContext } from '../../../context/OrderContext'
 import { DeliveryInfoContainer, InfoItem } from './styles'
 
 export function DeliveryInfo() {
+  const { street, addressNumber, district, city, uf, paymentInfo } =
+    useContext(OrderContext)
+
+  function ajustPaymentType() {
+    if (paymentInfo === 'CreditCard') {
+      return 'Cartão de crédito'
+    } else if (paymentInfo === 'DebitCard') {
+      return 'Cartão de débito'
+    } else if (paymentInfo === 'Money') {
+      return 'Dinheiro'
+    }
+  }
+
   return (
     <DeliveryInfoContainer>
       <InfoItem iconBackground="purple">
@@ -10,9 +25,14 @@ export function DeliveryInfo() {
         </div>
         <section>
           <p>
-            Entrega em <span>Rua João Daniel Martinelli, 102</span>
+            Entrega em{' '}
+            <span>
+              {street}, {addressNumber}
+            </span>
           </p>
-          <p>Farrapos - Porto Alegre, RS</p>
+          <p>
+            {district} - {city}, {uf}
+          </p>
         </section>
       </InfoItem>
       <InfoItem iconBackground="yellow">
@@ -30,7 +50,7 @@ export function DeliveryInfo() {
         </div>
         <section>
           <p>Pagamento na entrega</p>
-          <span>Cartão de Crédito</span>
+          <span>{ajustPaymentType()}</span>
         </section>
       </InfoItem>
     </DeliveryInfoContainer>
