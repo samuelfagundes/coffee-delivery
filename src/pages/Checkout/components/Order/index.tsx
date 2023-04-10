@@ -31,7 +31,9 @@ export function Order() {
 
   const totalItems = orderList.reduce(
     (previousValue, currentValue) =>
-      previousValue + Number(currentValue.price) * currentValue.quantity,
+      previousValue +
+      Number(currentValue.price) *
+        (currentValue.quantity ? currentValue.quantity : 0),
     0,
   )
 
