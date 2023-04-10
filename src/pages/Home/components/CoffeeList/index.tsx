@@ -67,11 +67,19 @@ export function CoffeeList() {
                         <Plus />
                       </button>
                     </div>
-                    <Link to="/checkout">
-                      <button onClick={saveOrderList}>
-                        <ShoppingCart size={22} weight="fill" />
-                      </button>
-                    </Link>
+                    {orderList.filter((order) => order.id === coffee.id) ? (
+                      <Link to="/checkout">
+                        <button onClick={saveOrderList}>
+                          <ShoppingCart size={22} weight="fill" />
+                        </button>
+                      </Link>
+                    ) : (
+                      <Link to="/">
+                        <button onClick={saveOrderList}>
+                          <ShoppingCart size={22} weight="fill" />
+                        </button>
+                      </Link>
+                    )}
                   </form>
                 </CoffeeCardFooter>
               </div>

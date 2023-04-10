@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { createContext, ReactNode, useEffect, useState } from 'react'
+
+import coffees from '../../db.json'
 
 type CEP = number | undefined
 type Street = string | undefined
@@ -17,7 +18,7 @@ interface Coffee {
   description: string
   price: string
   image: string
-  quantity: number
+  quantity?: number
 }
 
 interface Order {
@@ -25,7 +26,7 @@ interface Order {
   name: string
   price: string
   image: string
-  quantity: number
+  quantity?: number
 }
 
 interface DeliveryInfo {
@@ -105,9 +106,8 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [uf, setUf] = useState<UF>()
 
   useEffect(() => {
-    async function getCoffees() {
-      const response = await axios.get('http://localhost:3000/coffees')
-      setCoffeesList(response.data)
+    function getCoffees() {
+      setCoffeesList(coffees.coffees)
     }
     getCoffees()
   }, [])
